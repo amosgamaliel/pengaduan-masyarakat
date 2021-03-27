@@ -19,11 +19,11 @@ class CepuOnline : Application(), KodeinAware {
     override val kodein = Kodein.lazy {
         import(androidXModule(this@CepuOnline))
 
-        bind() from singleton { NetworkConnectionInterceptor(instance()) }
         bind() from singleton { AppDatabase(instance()) }
-        bind() from singleton { MyApi(instance()) }
-        bind() from singleton { UserRepository(instance(), instance()) }
         bind() from singleton { PreferenceProvider(instance()) }
+        bind() from singleton { NetworkConnectionInterceptor(instance()) }
+        bind() from singleton { MyApi(instance()) }
+        bind() from singleton { UserRepository(instance(), instance(),instance()) }
 //        bind() from singleton { QuotesRepository(instance(),instance(),instance()) }
         bind() from provider { AuthViewModelFactory(instance()) }
 //        bind() from provider { ProfileViewModelFactory(instance()) }
@@ -32,5 +32,10 @@ class CepuOnline : Application(), KodeinAware {
 //                instance()
 //            )
 //        }
+    }
+
+    override fun onCreate() {
+        super.onCreate()
+
     }
 }

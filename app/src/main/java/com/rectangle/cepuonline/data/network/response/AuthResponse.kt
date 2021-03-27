@@ -11,6 +11,9 @@ data class AuthResponse (
     @SerializedName("message")
     @Expose
     val message: String,
+    @SerializedName("token")
+    @Expose
+    val token: String,
     @SerializedName("data")
     @Expose
     val user : User?

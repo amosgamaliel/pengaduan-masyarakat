@@ -15,9 +15,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CepuOnline"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ui.auth.LoginActivity"></activity>
+        <activity android:name=".ui.home.ajukan.AjukanKeluhanActivity"></activity>
         <activity android:name=".ui.home.HomeActivity" />
-        <activity android:name=".ui.home.ajukan.AjukanKeluhanActivity">
+        <activity android:name=".ui.auth.LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

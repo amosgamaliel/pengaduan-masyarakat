@@ -12,6 +12,7 @@ import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.data.network.model.User
 import com.rectangle.cepuonline.databinding.ActivityLoginBinding
 import com.rectangle.cepuonline.ui.home.HomeActivity
+import com.rectangle.cepuonline.ui.home.ajukan.AjukanKeluhanActivity
 //import com.rectangle.cepuonline.databinding.ActivityLoginBinding
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -38,7 +39,7 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
             if (user!= null){
                 when (user.role_id) {
                     ROLE_MASYARAKAT -> {
-                        val intent = Intent(this,HomeActivity::class.java)
+                        val intent = Intent(this,AjukanKeluhanActivity::class.java)
                         finish()
                         startActivity(intent)
                     }
@@ -56,7 +57,8 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
         toast("sedang login")
     }
 
-    override fun onSuccess(user: User) {
+    override fun onSuccess(user: User, token:String) {
+        toast(token)
     }
 
     override fun onFailure(message: String) {

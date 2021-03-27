@@ -35,7 +35,7 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
             try {
                 val authResponse = repository.userLogin(email!!,password!!)
                 authResponse.user?.let {
-                    authListener?.onSuccess(it)
+                    authListener?.onSuccess(it,authResponse.token)
                     repository.saveUser(it)
                     return@main
                 }
@@ -91,7 +91,7 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
             try {
                 val authResponse = repository.userSignup(name!!,email!!,password!!)
                 authResponse.user?.let {
-                    authListener?.onSuccess(it)
+//                    authListener?.onSuccess(it)
 //                    repository.saveUser(it)
                     return@main
                 }

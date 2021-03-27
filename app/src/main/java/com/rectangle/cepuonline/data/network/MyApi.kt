@@ -30,7 +30,7 @@ interface MyApi {
     ):Response<AuthResponse>
 
     @Multipart
-    @POST("image")
+    @POST("pengaduan")
     fun postPengaduan(
         @Part("subjek") subjek: RequestBody?,
         @Part("isi_laporan") isiLaporan: RequestBody?,
@@ -39,7 +39,7 @@ interface MyApi {
     ): Response<PostPengaduanResponse>
 
     @Multipart
-    @POST("image")
+    @POST("pengaduan")
     fun uploadFiles(
         @Part("subjek") subjek: RequestBody?,
         @Part("isi_laporan") isiLaporan: RequestBody?,
@@ -59,19 +59,21 @@ interface MyApi {
 
             return Retrofit.Builder()
                     .client(okHttpClient)
-                    .baseUrl("http://192.168.1.2:8000/api/")
+                    .baseUrl("http://192.168.1.7:8000/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(MyApi::class.java)
         }
 
-        operator fun invoke() : MyApi{
-
-            return Retrofit.Builder()
-                .baseUrl("http://192.168.1.2:8000/api/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build()
-                .create(MyApi::class.java)
-        }
+//        operator fun invoke() : MyApi{
+//            val okHttpClient = OkHttpClient.Builder()
+//                .addInterceptor(networkConnectionInterceptor)
+//                .build()
+//            return Retrofit.Builder()
+//                .baseUrl("http://192.168.1.7:8000/api/")
+//                .addConverterFactory(GsonConverterFactory.create())
+//                .build()
+//                .create(MyApi::class.java)
+//        }
     }
 }

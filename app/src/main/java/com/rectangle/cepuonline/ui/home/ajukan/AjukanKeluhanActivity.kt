@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.data.network.MyApi
+import com.rectangle.cepuonline.data.network.NetworkConnectionInterceptor
 import com.rectangle.cepuonline.data.network.response.PostPengaduanResponse
 import com.rectangle.cepuonline.databinding.ActivityAjukanKeluhanBinding
 import com.rectangle.cepuonline.databinding.FragmentAjukanKeluhanBinding
@@ -137,7 +138,7 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
 
 
 //            progress_bar.progress = 0
-            MyApi().uploadFiles(subjek, isiLaporan, masyarakatId, parts).enqueue(object :
+            MyApi(NetworkConnectionInterceptor(this)).uploadFiles(subjek, isiLaporan, masyarakatId, parts).enqueue(object :
                 Callback<PostPengaduanResponse> {
                 override fun onFailure(call: Call<PostPengaduanResponse>, t: Throwable) {
                     Log.d("TAG", "onFailure: " + t.message)
