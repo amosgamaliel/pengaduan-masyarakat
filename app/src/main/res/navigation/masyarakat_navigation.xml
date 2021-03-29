@@ -15,4 +15,8 @@
         android:name="com.rectangle.cepuonline.ui.home.ajukan.AjukanKeluhanFragment"
         android:label="fragment_ajukan_keluhan"
         tools:layout="@layout/fragment_ajukan_keluhan" />
+    <fragment
+        android:id="@+id/feedPengaduanFragment"
+        android:name="com.rectangle.cepuonline.ui.home.ajukan.FeedPengaduanFragment"
+        android:label="FeedPengaduanFragment" />
 </navigation>

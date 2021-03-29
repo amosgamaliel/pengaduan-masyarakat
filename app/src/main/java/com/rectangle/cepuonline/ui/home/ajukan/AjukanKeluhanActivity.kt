@@ -7,27 +7,22 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.annotation.NonNull
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.data.network.MyApi
 import com.rectangle.cepuonline.data.network.NetworkConnectionInterceptor
 import com.rectangle.cepuonline.data.network.response.PostPengaduanResponse
-import com.rectangle.cepuonline.databinding.ActivityAjukanKeluhanBinding
-import com.rectangle.cepuonline.databinding.FragmentAjukanKeluhanBinding
+import com.rectangle.cepuonline.ui.home.ajukan.adapter.ImageKeluhanAdapter
 import com.rectangle.cepuonline.util.Coroutines
 import com.rectangle.cepuonline.util.alertDialogShow
 import com.rectangle.cepuonline.util.getFileName
 import com.rectangle.cepuonline.util.snackbar
 import kotlinx.android.synthetic.main.activity_ajukan_keluhan.*
-import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.MediaType
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
-import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 import retrofit2.Call
 import retrofit2.Callback
@@ -38,9 +33,9 @@ import java.io.FileOutputStream
 
 class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
 
-    private lateinit var viewModel: AjukanKeluhanViewModel
+    private lateinit var viewModel: PengaduanViewModel
     override val kodein by kodein()
-    private val viewModelFactory: AjukanKeluhanViewModelFactory by instance()
+    private val viewModelFactory: PengaduanViewModelFactory by instance()
     private var listUri = arrayListOf<Uri?>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -89,7 +84,10 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
                 listUri.add(data?.data)
             }
         }
-        val imageKeluhanAdapter = ImageKeluhanAdapter(listUri)
+        val imageKeluhanAdapter =
+            ImageKeluhanAdapter(
+                listUri
+            )
         rvImagePengaduan.apply{
             layoutManager = GridLayoutManager(this@AjukanKeluhanActivity,2, GridLayoutManager.VERTICAL,false)
             adapter = imageKeluhanAdapter

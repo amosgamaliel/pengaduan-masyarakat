@@ -1,4 +1,4 @@
-package com.rectangle.cepuonline.ui.home.ajukan
+package com.rectangle.cepuonline.ui.home.ajukan.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
@@ -13,13 +13,13 @@ class ImageKeluhanAdapter(private val aduanImages : ArrayList<Uri?>) : RecyclerV
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ImageKeluhanAdapter.ViewHolder {
+    ): ViewHolder {
         return ViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.list_item_image_aduan, parent, false))
     }
 
     override fun getItemCount(): Int = aduanImages.size
 
-    override fun onBindViewHolder(holder: ImageKeluhanAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindHero(aduanImages[position])
     }
 

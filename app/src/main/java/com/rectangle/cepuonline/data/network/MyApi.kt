@@ -1,6 +1,8 @@
 package com.rectangle.cepuonline.data.network
 
 import com.rectangle.cepuonline.data.network.response.AuthResponse
+import com.rectangle.cepuonline.data.network.response.FeedResponse
+import com.rectangle.cepuonline.data.network.response.PengaduanResponse
 import com.rectangle.cepuonline.data.network.response.PostPengaduanResponse
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
@@ -13,6 +15,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 
+const val REMOTE_URL = "http://192.168.1.7:8000"
 interface MyApi {
     @FormUrlEncoded
     @POST("login")
@@ -38,6 +41,9 @@ interface MyApi {
         @Part files: List<MultipartBody.Part?>?
     ): Response<PostPengaduanResponse>
 
+    @GET("pengaduan")
+    suspend fun getPengaduan(): Response<FeedResponse>
+
     @Multipart
     @POST("pengaduan")
     fun uploadFiles(
@@ -47,9 +53,6 @@ interface MyApi {
         @Part files: List<MultipartBody.Part?>?
     ): Call<PostPengaduanResponse>
 
-//
-//    @GET("quotes")
-//    suspend fun getQuotes() : Response<QuoteResponse>
 
     companion object{
         operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor) : MyApi{
@@ -59,21 +62,10 @@ interface MyApi {
 
             return Retrofit.Builder()
                     .client(okHttpClient)
-                    .baseUrl("http://192.168.1.7:8000/api/")
+                    .baseUrl("$REMOTE_URL/api/")
                     .addConverterFactory(GsonConverterFactory.create())
                     .build()
                     .create(MyApi::class.java)
         }
-
-//        operator fun invoke() : MyApi{
-//            val okHttpClient = OkHttpClient.Builder()
-//                .addInterceptor(networkConnectionInterceptor)
-//                .build()
-//            return Retrofit.Builder()
-//                .baseUrl("http://192.168.1.7:8000/api/")
-//                .addConverterFactory(GsonConverterFactory.create())
-//                .build()
-//                .create(MyApi::class.java)
-//        }
     }
 }

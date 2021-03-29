@@ -30,6 +30,10 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+
     dataBinding {
         enabled = true
     }
@@ -90,4 +94,8 @@ dependencies {
     //Hawk SharedPreferences
     implementation "com.orhanobut:hawk:2.0.1"
     implementation "androidx.preference:preference-ktx:1.1.1"
+
+    //glide
+    implementation 'com.github.bumptech.glide:glide:4.4.0'
+    kapt 'com.github.bumptech.glide:compiler:4.4.0'
 }

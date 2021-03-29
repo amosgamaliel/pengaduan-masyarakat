@@ -39,7 +39,7 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
             if (user!= null){
                 when (user.role_id) {
                     ROLE_MASYARAKAT -> {
-                        val intent = Intent(this,AjukanKeluhanActivity::class.java)
+                        val intent = Intent(this,HomeActivity::class.java)
                         finish()
                         startActivity(intent)
                     }
