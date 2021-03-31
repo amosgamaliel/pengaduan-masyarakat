@@ -6,13 +6,10 @@ import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.navigation.findNavController
-import androidx.navigation.fragment.findNavController
 import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.data.network.model.User
 import com.rectangle.cepuonline.databinding.ActivityLoginBinding
-import com.rectangle.cepuonline.ui.home.HomeActivity
-import com.rectangle.cepuonline.ui.home.ajukan.AjukanKeluhanActivity
+import com.rectangle.cepuonline.ui.home.masyarakat.HomeMasyarakatActivity
 //import com.rectangle.cepuonline.databinding.ActivityLoginBinding
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -39,7 +36,8 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
             if (user!= null){
                 when (user.role_id) {
                     ROLE_MASYARAKAT -> {
-                        val intent = Intent(this,HomeActivity::class.java)
+                        val intent = Intent(this,
+                            HomeMasyarakatActivity::class.java)
                         finish()
                         startActivity(intent)
                     }

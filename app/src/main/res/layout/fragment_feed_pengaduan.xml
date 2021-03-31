@@ -9,14 +9,14 @@
             type="com.rectangle.cepuonline.data.network.response.FeedResponse" />
         <variable
             name="viewModel"
-            type="com.rectangle.cepuonline.ui.home.ajukan.PengaduanViewModel" />
+            type="com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.PengaduanViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#9F9F9F"
-        tools:context=".ui.home.ajukan.FeedPengaduanFragment">
+        tools:context=".ui.home.masyarakat.pengaduan.FeedPengaduanFragment">
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -31,5 +31,16 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:listitem="@layout/list_item_feed_pengaduan" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fabAja"
+            android:layout_width="64dp"
+            android:layout_height="51dp"
+            android:clickable="true"
+            android:layout_gravity="end|bottom"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_lock"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -1,4 +1,4 @@
-package com.rectangle.cepuonline.ui.home.ajukan
+package com.rectangle.cepuonline.ui.home.masyarakat.pengaduan
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

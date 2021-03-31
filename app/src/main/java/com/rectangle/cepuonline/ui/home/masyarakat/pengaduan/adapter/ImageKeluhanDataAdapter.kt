@@ -1,8 +1,7 @@
-package com.rectangle.cepuonline.ui.home.ajukan.adapter
+package com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter
 
 import android.content.Context
 import android.util.DisplayMetrics
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup

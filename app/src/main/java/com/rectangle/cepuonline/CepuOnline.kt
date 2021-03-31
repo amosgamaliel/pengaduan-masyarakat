@@ -8,7 +8,7 @@ import com.rectangle.cepuonline.data.preferences.PreferenceProvider
 import com.rectangle.cepuonline.data.repositories.KeluhanRepository
 import com.rectangle.cepuonline.data.repositories.UserRepository
 import com.rectangle.cepuonline.ui.auth.AuthViewModelFactory
-import com.rectangle.cepuonline.ui.home.ajukan.PengaduanViewModelFactory
+import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.PengaduanViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule

@@ -1,10 +1,9 @@
-package com.rectangle.cepuonline.ui.home.ajukan.adapter
+package com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter
 
 import android.net.Uri
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rectangle.cepuonline.R
 import kotlinx.android.synthetic.main.list_item_image_aduan.view.*

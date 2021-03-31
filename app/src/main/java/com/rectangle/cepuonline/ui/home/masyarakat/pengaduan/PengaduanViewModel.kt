@@ -1,9 +1,6 @@
-package com.rectangle.cepuonline.ui.home.ajukan
+package com.rectangle.cepuonline.ui.home.masyarakat.pengaduan
 
-import android.net.Uri
-import android.os.FileUtils
 import android.util.Log
-import androidx.annotation.NonNull
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,13 +10,6 @@ import com.rectangle.cepuonline.ui.auth.AuthListener
 import com.rectangle.cepuonline.util.ApiException
 import com.rectangle.cepuonline.util.Coroutines
 import com.rectangle.cepuonline.util.NoInternetException
-import com.rectangle.cepuonline.util.getFileName
-import okhttp3.MediaType
-import okhttp3.MultipartBody
-import okhttp3.RequestBody
-import java.io.File
-import java.io.FileInputStream
-import java.io.FileOutputStream
 
 
 class PengaduanViewModel(private val repository: KeluhanRepository) : ViewModel() {

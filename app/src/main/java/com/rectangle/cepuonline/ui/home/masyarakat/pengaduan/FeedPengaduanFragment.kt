@@ -1,13 +1,16 @@
-package com.rectangle.cepuonline.ui.home.ajukan
+package com.rectangle.cepuonline.ui.home.masyarakat.pengaduan
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.databinding.FragmentFeedPengaduanBinding
 import org.kodein.di.KodeinAware
@@ -31,6 +34,7 @@ class FeedPengaduanFragment : Fragment(), KodeinAware{
 
         val adapter = PengaduanFeedAdapter()
         binding.feedPengaduanRv.adapter = adapter
+
         viewModel.listPengaduan.observe(viewLifecycleOwner, Observer{
             it?.let {
                 adapter.data = it
@@ -40,4 +44,15 @@ class FeedPengaduanFragment : Fragment(), KodeinAware{
         return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val fab: FloatingActionButton? = view.findViewById(R.id.fabAja)
+        fab?.setOnClickListener {
+            Toast.makeText(context, "woah", Toast.LENGTH_SHORT).show()
+            activity?.let{
+                val intent = Intent (it, AjukanKeluhanActivity::class.java)
+                it.startActivity(intent)
+            }
+        }
+    }
 }

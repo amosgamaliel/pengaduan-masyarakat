@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rectangle.cepuonline.data.network.response.ImagePengaduan
 import com.rectangle.cepuonline.data.network.response.PengaduanResponse
-import com.rectangle.cepuonline.ui.home.ajukan.adapter.GridItemImageDecoration
-import com.rectangle.cepuonline.ui.home.ajukan.adapter.ImageKeluhanDataAdapter
+import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter.GridItemImageDecoration
+import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter.ImageKeluhanDataAdapter
 
 
 //@BindingAdapter(value = ["setBooks"])

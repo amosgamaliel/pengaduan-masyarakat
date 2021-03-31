@@ -1,4 +1,4 @@
-package com.rectangle.cepuonline.ui.home.ajukan.adapter
+package com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter
 
 import android.graphics.Rect
 import android.view.View

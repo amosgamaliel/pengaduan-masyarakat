@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/dashboardMasyarakatFragment"
-        android:name="com.rectangle.cepuonline.ui.home.dashboard.DashboardMasyarakatFragment"
+        android:name="com.rectangle.cepuonline.ui.home.masyarakat.dashboard.DashboardMasyarakatFragment"
         android:label="fragment_dashboard_masyarakat"
         tools:layout="@layout/fragment_dashboard_masyarakat" />
     <fragment
         android:id="@+id/ajukanKeluhanFragment"
-        android:name="com.rectangle.cepuonline.ui.home.ajukan.AjukanKeluhanFragment"
+        android:name="com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.AjukanKeluhanFragment"
         android:label="fragment_ajukan_keluhan"
         tools:layout="@layout/fragment_ajukan_keluhan" />
     <fragment
         android:id="@+id/feedPengaduanFragment"
-        android:name="com.rectangle.cepuonline.ui.home.ajukan.FeedPengaduanFragment"
+        android:name="com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.FeedPengaduanFragment"
         android:label="FeedPengaduanFragment" />
 </navigation>

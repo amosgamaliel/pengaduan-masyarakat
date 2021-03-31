@@ -1,4 +1,4 @@
-package com.rectangle.cepuonline.ui.home.ajukan
+package com.rectangle.cepuonline.ui.home.masyarakat.pengaduan
 
 import android.app.Activity
 import android.content.Intent
@@ -12,7 +12,7 @@ import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.data.network.MyApi
 import com.rectangle.cepuonline.data.network.NetworkConnectionInterceptor
 import com.rectangle.cepuonline.data.network.response.PostPengaduanResponse
-import com.rectangle.cepuonline.ui.home.ajukan.adapter.ImageKeluhanAdapter
+import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter.ImageKeluhanAdapter
 import com.rectangle.cepuonline.util.Coroutines
 import com.rectangle.cepuonline.util.alertDialogShow
 import com.rectangle.cepuonline.util.getFileName
@@ -55,6 +55,7 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
         pilihGambar.setOnClickListener {
             openImageChooser()
         }
+
     }
 
     private fun openImageChooser() {
