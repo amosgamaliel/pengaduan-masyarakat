@@ -9,6 +9,7 @@ import com.rectangle.cepuonline.data.repositories.KeluhanRepository
 import com.rectangle.cepuonline.data.repositories.UserRepository
 import com.rectangle.cepuonline.ui.auth.AuthViewModelFactory
 import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.PengaduanViewModelFactory
+import com.rectangle.cepuonline.ui.home.petugas.dashboard.DashboardPetugasViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule
@@ -29,6 +30,7 @@ class CepuOnline : Application(), KodeinAware {
         bind() from singleton { KeluhanRepository(instance(),instance()) }
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { PengaduanViewModelFactory(instance()) }
+        bind() from provider { DashboardPetugasViewModelFactory(instance()) }
 //        bind() from provider {
 //            QuotesViewModelFactory(
 //                instance()

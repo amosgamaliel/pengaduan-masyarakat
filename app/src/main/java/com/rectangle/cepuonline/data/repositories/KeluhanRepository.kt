@@ -3,9 +3,7 @@ package com.rectangle.cepuonline.data.repositories
 import com.rectangle.cepuonline.data.db.AppDatabase
 import com.rectangle.cepuonline.data.network.MyApi
 import com.rectangle.cepuonline.data.network.SafeApiRequest
-import com.rectangle.cepuonline.data.network.response.AuthResponse
-import com.rectangle.cepuonline.data.network.response.FeedResponse
-import com.rectangle.cepuonline.data.network.response.PostPengaduanResponse
+import com.rectangle.cepuonline.data.network.response.*
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -16,5 +14,9 @@ class KeluhanRepository(private val api: MyApi, private val db : AppDatabase) : 
 
     suspend fun getPengaduans() : FeedResponse {
         return apiRequest { api.getPengaduan() }
+    }
+
+    suspend fun getPengaduanById(idPengaduan : Int) : DetailPengaduanResponse {
+        return apiRequest { api.getPengaduan(idPengaduan) }
     }
 }

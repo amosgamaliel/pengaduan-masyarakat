@@ -1,9 +1,7 @@
 package com.rectangle.cepuonline.data.network
 
-import com.rectangle.cepuonline.data.network.response.AuthResponse
-import com.rectangle.cepuonline.data.network.response.FeedResponse
-import com.rectangle.cepuonline.data.network.response.PengaduanResponse
-import com.rectangle.cepuonline.data.network.response.PostPengaduanResponse
+import com.google.gson.GsonBuilder
+import com.rectangle.cepuonline.data.network.response.*
 import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
@@ -15,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 
-const val REMOTE_URL = "http://192.168.1.7:8000"
+const val REMOTE_URL = "http://192.168.1.8:8000"
 interface MyApi {
     @FormUrlEncoded
     @POST("login")
@@ -53,6 +51,19 @@ interface MyApi {
         @Part files: List<MultipartBody.Part?>?
     ): Call<PostPengaduanResponse>
 
+    @Multipart
+    @POST("tanggapan/{id}")
+    fun uploadFilesTanggapan(
+        @Path("id") idTanggapan : Int,
+        @Part("subjek") subjek: RequestBody?,
+        @Part("isi_tanggapan") isiLaporan: RequestBody?,
+        @Part("masyarakat_id") masyarakatId :RequestBody?,
+        @Part files: List<MultipartBody.Part?>?
+    ): Call<PostPengaduanResponse>
+
+    @GET("pengaduan/{id}")
+    suspend fun getPengaduan(@Path("id") idPengaduan : Int ): Response<DetailPengaduanResponse>
+
 
     companion object{
         operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor) : MyApi{
@@ -60,10 +71,12 @@ interface MyApi {
                     .addInterceptor(networkConnectionInterceptor)
                     .build()
 
+            val gson = GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create()
+
             return Retrofit.Builder()
                     .client(okHttpClient)
                     .baseUrl("$REMOTE_URL/api/")
-                    .addConverterFactory(GsonConverterFactory.create())
+                    .addConverterFactory(GsonConverterFactory.create(gson))
                     .build()
                     .create(MyApi::class.java)
         }

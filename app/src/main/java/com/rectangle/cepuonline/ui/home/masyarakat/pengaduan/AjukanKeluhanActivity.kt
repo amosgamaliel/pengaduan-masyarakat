@@ -6,6 +6,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.GridLayoutManager
 import com.rectangle.cepuonline.R
@@ -42,6 +43,15 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ajukan_keluhan)
 
+        val pengaduanId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).pengaduanId }
+        val masyarakatId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).masyarakatId }
+
+        pengaduanId.let {
+            it?.let {
+                Toast.makeText(this@AjukanKeluhanActivity, it.toString(), Toast.LENGTH_SHORT).show()
+            }
+        }
+
 //        val binding : ActivityAjukanKeluhanBinding = DataBindingUtil.setContentView(this,R.layout.activity_ajukan_keluhan)
 //        viewModel = ViewModelProviders.of(this, viewModelFactory)
 //            .get(AjukanKeluhanViewModel::class.java)
@@ -49,6 +59,17 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
 //        binding.viewModel = viewModel
 
         ajukanBtn.setOnClickListener {
+            pengaduanId.let {
+                it?.let {
+                    if (masyarakatId != null) {
+                        postTanggapan(it,masyarakatId)
+                    }else{
+                        Toast.makeText(this@AjukanKeluhanActivity, "Parameter activity tidak ditemukan", Toast.LENGTH_SHORT).show()
+                    }
+                    return@setOnClickListener
+                }
+                return@let
+            }
             postPengaduan()
         }
 
@@ -135,9 +156,46 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
             val isiLaporan = createPartFromString(isiLaporan_editText.text.toString())
             val masyarakatId = createPartFromString("3")
 
+            MyApi(NetworkConnectionInterceptor(this)).uploadFiles(subjek, isiLaporan, masyarakatId, parts).enqueue(object :
+                Callback<PostPengaduanResponse> {
+                override fun onFailure(call: Call<PostPengaduanResponse>, t: Throwable) {
+                    Log.d("TAG", "onFailure: " + t.message)
+                }
+
+                override fun onResponse(
+                    call: Call<PostPengaduanResponse>,
+                    response: Response<PostPengaduanResponse>
+                ) {
+                    response.body()?.let {
+                        Coroutines.main{
+                            alertDialogShow(this@AjukanKeluhanActivity, it.message)
+                        }
+                    }
+                }
+            })
+
+        }
+    }
+
+    private fun postTanggapan(idPengaduan : Int, idMasyarakat : Int) {
+        Coroutines.io {
+            val parts = arrayListOf<MultipartBody.Part>()
+            if (listUri.isEmpty()) {
+                layout_root.snackbar("Gambar belum ada")
+                return@io
+            }
+
+            listUri.forEach { uri ->
+                parts.add(prepareFilePart("photo[]", uri!!))
+            }
+
+            val subjek = createPartFromString(subjek_editText.text.toString())
+            val isiLaporan = createPartFromString(isiLaporan_editText.text.toString())
+            val masyarakatId = createPartFromString(idMasyarakat.toString())
+
 
 //            progress_bar.progress = 0
-            MyApi(NetworkConnectionInterceptor(this)).uploadFiles(subjek, isiLaporan, masyarakatId, parts).enqueue(object :
+            MyApi(NetworkConnectionInterceptor(this)).uploadFilesTanggapan(idPengaduan,subjek, isiLaporan, masyarakatId, parts).enqueue(object :
                 Callback<PostPengaduanResponse> {
                 override fun onFailure(call: Call<PostPengaduanResponse>, t: Throwable) {
                     Log.d("TAG", "onFailure: " + t.message)

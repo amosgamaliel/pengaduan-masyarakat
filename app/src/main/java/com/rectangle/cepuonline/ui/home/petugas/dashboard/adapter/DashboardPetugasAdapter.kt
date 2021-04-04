@@ -1,4 +1,4 @@
-package com.rectangle.cepuonline.ui.home.masyarakat.pengaduan
+package com.rectangle.cepuonline.ui.home.petugas.dashboard.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -6,9 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rectangle.cepuonline.data.network.response.PengaduanResponse
-import com.rectangle.cepuonline.databinding.ListItemFeedPengaduanBinding
+import com.rectangle.cepuonline.databinding.ListItemPengaduanLinearBinding
+import com.rectangle.cepuonline.ui.home.petugas.dashboard.adapter.listener.DashboardPetugasListener
 
-class PengaduanFeedAdapter: ListAdapter<PengaduanResponse, PengaduanFeedAdapter.ViewHolder>(PengaduanFeedDiffCallback()) {
+class DashboardPetugasAdapter(private val clickListener : DashboardPetugasListener) : ListAdapter<PengaduanResponse, DashboardPetugasAdapter.ViewHolder>(
+    PengaduanFeedDiffCallback()
+) {
 
     var data = listOf<PengaduanResponse>()
         set(value) {
@@ -16,31 +19,36 @@ class PengaduanFeedAdapter: ListAdapter<PengaduanResponse, PengaduanFeedAdapter.
             notifyDataSetChanged()
         }
 
-    class ViewHolder private constructor(private val binding: ListItemFeedPengaduanBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: PengaduanResponse) {
+    class ViewHolder private constructor(private val binding: ListItemPengaduanLinearBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: PengaduanResponse, clickListener: DashboardPetugasListener) {
             binding.pengaduan = item
+            binding.clickListener = clickListener
             binding.executePendingBindings()
         }
 
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemFeedPengaduanBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemPengaduanLinearBinding.inflate(layoutInflater, parent, false)
 
 
-                return ViewHolder(binding)
+                return ViewHolder(
+                    binding
+                )
             }
         }
     }
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder.from(parent)
+        return ViewHolder.from(
+            parent
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = data[position]
-        holder.bind(item)
+        holder.bind(item,clickListener)
     }
 
     override fun getItemCount(): Int {

@@ -15,7 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CepuOnline"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.AjukanKeluhanActivity"></activity>
+        <activity android:name=".ui.home.petugas.HomePetugasActivity"></activity>
+        <activity android:name=".ui.home.masyarakat.pengaduan.AjukanKeluhanActivity" />
         <activity android:name=".ui.home.masyarakat.HomeMasyarakatActivity" />
         <activity android:name=".ui.auth.LoginActivity">
             <intent-filter>

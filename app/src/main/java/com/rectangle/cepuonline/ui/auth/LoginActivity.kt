@@ -10,6 +10,7 @@ import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.data.network.model.User
 import com.rectangle.cepuonline.databinding.ActivityLoginBinding
 import com.rectangle.cepuonline.ui.home.masyarakat.HomeMasyarakatActivity
+import com.rectangle.cepuonline.ui.home.petugas.HomePetugasActivity
 //import com.rectangle.cepuonline.databinding.ActivityLoginBinding
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
@@ -42,7 +43,10 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
                         startActivity(intent)
                     }
                     ROLE_PETUGAS -> {
-                        toast("Login petugas berhasil")
+                        val intent = Intent(this,
+                            HomePetugasActivity::class.java)
+                        finish()
+                        startActivity(intent)
                     }
                     else -> {
                         toast("Error : role_id tidak valid")

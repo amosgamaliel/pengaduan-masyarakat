@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/petugas_navigation"
+    app:startDestination="@id/dashboardPetugasFragment">
+
+    <fragment
+        android:id="@+id/dashboardPetugasFragment"
+        android:name="com.rectangle.cepuonline.ui.home.petugas.dashboard.DashboardPetugasFragment"
+        android:label="DashboardPetugasFragment" >
+        <action
+            android:id="@+id/action_dashboardPetugasFragment_to_detailPengaduanFragment"
+            app:destination="@id/detailPengaduanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPengaduanFragment"
+        android:name="com.rectangle.cepuonline.ui.home.petugas.tanggapan.DetailPengaduanFragment"
+        android:label="DetailPengaduanFragment" >
+        <action
+            android:id="@+id/action_detailPengaduanFragment_to_ajukanKeluhanActivity"
+            app:destination="@id/ajukanKeluhanActivity" />
+    </fragment>
+    <activity
+        android:id="@+id/ajukanKeluhanActivity"
+        android:name="com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.AjukanKeluhanActivity"
+        android:label="AjukanKeluhanActivity" >
+        <argument
+            android:name="pengaduanId"
+            app:argType="integer" />
+        <argument
+            android:name="masyarakatId"
+            app:argType="integer" />
+    </activity>
+</navigation>

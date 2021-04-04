@@ -1,9 +1,12 @@
 package com.rectangle.cepuonline.data.network.response
 
 import com.google.gson.annotations.SerializedName
+import java.util.*
+import kotlin.collections.ArrayList
+
 data class PengaduanResponse (
 	@SerializedName("id") val id : Int,
-	@SerializedName("tanggal_pengaduan") val tanggal_pengaduan : String,
+	@SerializedName("tanggal_pengaduan") val tanggal_pengaduan : Date,
 	@SerializedName("nama") val namaPengadu : String,
 	@SerializedName("subjek") val subjek : String,
 	@SerializedName("isi_laporan") val isi_laporan : String,

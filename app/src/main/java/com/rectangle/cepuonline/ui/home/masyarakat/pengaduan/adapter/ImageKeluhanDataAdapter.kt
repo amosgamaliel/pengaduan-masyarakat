@@ -14,7 +14,7 @@ import com.rectangle.cepuonline.data.network.response.ImagePengaduan
 import kotlinx.android.synthetic.main.list_item_image_aduan.view.*
 
 
-class ImageKeluhanDataAdapter(private val aduanImages: ArrayList<ImagePengaduan?>) :
+class ImageKeluhanDataAdapter(private val aduanImages: ArrayList<ImagePengaduan>) :
     RecyclerView.Adapter<ImageKeluhanDataAdapter.ViewHolder>() {
     override fun onCreateViewHolder(
         parent: ViewGroup,
