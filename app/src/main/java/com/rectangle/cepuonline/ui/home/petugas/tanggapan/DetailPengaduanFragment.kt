@@ -127,7 +127,7 @@ class DetailPengaduanFragment : Fragment(), KodeinAware, PengaduanListener {
         super.onViewCreated(view, savedInstanceState)
 
         tulisBalasButton.setOnClickListener {
-            this.findNavController().navigate(DetailPengaduanFragmentDirections.actionDetailPengaduanFragmentToAjukanKeluhanActivity(viewModel.idPengaduan.value!!,viewModel.pengaduan.value!!.masyarakat_id,viewModel.pengaduan.value!!.namaPengadu))
+            this.findNavController().navigate(DetailPengaduanFragmentDirections.actionDetailPengaduanFragmentToAjukanKeluhanActivity(viewModel.idPengaduan.value!!,viewModel.pengaduan.value!!.masyarakat_id,viewModel.pengaduan.value!!.namaPengadu,viewModel.pengaduan.value!!.subjek))
         }
     }
 

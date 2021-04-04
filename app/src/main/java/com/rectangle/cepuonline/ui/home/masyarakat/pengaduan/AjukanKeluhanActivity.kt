@@ -43,6 +43,7 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
     private var pengaduanId: Int? = null
     private var masyarakatId: Int? = null
     private var namaMasyarakat: String? = null
+    private var subjekPengaduan: String? = null
 
     override val kodein by kodein()
     private val viewModelFactory: PengaduanViewModelFactory by instance()
@@ -60,8 +61,8 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
 
         pengaduanId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).pengaduanId }
         masyarakatId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).masyarakatId }
-        namaMasyarakat =
-            intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).namaMasyarakat }
+        namaMasyarakat = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).namaMasyarakat }
+        subjekPengaduan = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).subjekPengaduan }
 
         pengaduanId?.let {
             toolbar?.title = "Buat Tanggapan"
@@ -71,6 +72,11 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
         namaMasyarakat?.let {
             toPetugas.text= it
         }
+
+        subjekPengaduan?.let{
+            subjek_editText.setText("Tanggapan untuk pengaduan anda : $it")
+        }
+
 
 //        val binding : ActivityAjukanKeluhanBinding = DataBindingUtil.setContentView(this,R.layout.activity_ajukan_keluhan)
 //        viewModel = ViewModelProviders.of(this, viewModelFactory)

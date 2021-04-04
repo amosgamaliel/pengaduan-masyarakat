@@ -32,5 +32,7 @@
         <argument
             android:name="namaMasyarakat"
             app:argType="string" />
+        <argument android:name="subjekPengaduan"
+            app:argType="string" />
     </activity>
 </navigation>
