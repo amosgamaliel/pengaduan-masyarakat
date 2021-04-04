@@ -1,5 +1,6 @@
 package com.rectangle.cepuonline.util
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.ContentResolver
 import android.content.Context
@@ -168,6 +169,11 @@ fun alertDialogShow(context: Context?, message: String?) {
     val alertDialog: AlertDialog = AlertDialog.Builder(context).create()
     alertDialog.setMessage(message)
     alertDialog.setButton("OK",
-        DialogInterface.OnClickListener { dialog, which -> alertDialog.dismiss() })
+        DialogInterface.OnClickListener { dialog, which ->
+            if( context is Activity )
+                context.finish()
+            alertDialog.dismiss()
+        })
+
     alertDialog.show()
 }

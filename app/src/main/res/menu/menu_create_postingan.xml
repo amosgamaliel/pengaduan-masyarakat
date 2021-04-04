@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/openAttachment"
+        android:icon="@drawable/ic_image_attachment_24"
+        android:title="@string/dashboard"
+        app:showAsAction="always"/>
+    <item
+        android:id="@+id/sendPosting"
+        android:icon="@drawable/ic_send_24"
+        app:showAsAction="ifRoom"
+        android:title="@string/home_nav"/>
+</menu>

@@ -34,6 +34,10 @@ class ImageKeluhanAdapter(private val aduanImages : ArrayList<Uri?>) : RecyclerV
         }
     }
 
+    override fun getItemViewType(position: Int): Int {
+        return if (itemCount - 1 == position) 0 else 1
+    }
+
     fun removeItem(position: Uri?) {
         aduanImages.remove(position)
         notifyDataSetChanged()

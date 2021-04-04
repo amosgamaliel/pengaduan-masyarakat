@@ -29,5 +29,8 @@
         <argument
             android:name="masyarakatId"
             app:argType="integer" />
+        <argument
+            android:name="namaMasyarakat"
+            app:argType="string" />
     </activity>
 </navigation>

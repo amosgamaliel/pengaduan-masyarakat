@@ -3,16 +3,21 @@ package com.rectangle.cepuonline.ui.home.masyarakat.pengaduan
 import android.app.Activity
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.annotation.NonNull
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.data.network.MyApi
 import com.rectangle.cepuonline.data.network.NetworkConnectionInterceptor
 import com.rectangle.cepuonline.data.network.response.PostPengaduanResponse
+import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter.GridItemImageDecoration
 import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter.ImageKeluhanAdapter
 import com.rectangle.cepuonline.util.Coroutines
 import com.rectangle.cepuonline.util.alertDialogShow
@@ -32,9 +37,13 @@ import java.io.File
 import java.io.FileInputStream
 import java.io.FileOutputStream
 
-class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
+class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
 
     private lateinit var viewModel: PengaduanViewModel
+    private var pengaduanId: Int? = null
+    private var masyarakatId: Int? = null
+    private var namaMasyarakat: String? = null
+
     override val kodein by kodein()
     private val viewModelFactory: PengaduanViewModelFactory by instance()
     private var listUri = arrayListOf<Uri?>()
@@ -43,13 +52,24 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ajukan_keluhan)
 
-        val pengaduanId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).pengaduanId }
-        val masyarakatId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).masyarakatId }
+        val toolbar: Toolbar? = toolbar2
+        toolbar?.title = "Tulis Pengaduan"
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true);
+        supportActionBar?.setDisplayShowHomeEnabled(true);
 
-        pengaduanId.let {
-            it?.let {
-                Toast.makeText(this@AjukanKeluhanActivity, it.toString(), Toast.LENGTH_SHORT).show()
-            }
+        pengaduanId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).pengaduanId }
+        masyarakatId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).masyarakatId }
+        namaMasyarakat =
+            intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).namaMasyarakat }
+
+        pengaduanId?.let {
+            toolbar?.title = "Buat Tanggapan"
+            Toast.makeText(this@AjukanKeluhanActivity, it.toString(), Toast.LENGTH_SHORT).show()
+        }
+
+        namaMasyarakat?.let {
+            toPetugas.text= it
         }
 
 //        val binding : ActivityAjukanKeluhanBinding = DataBindingUtil.setContentView(this,R.layout.activity_ajukan_keluhan)
@@ -57,25 +77,6 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
 //            .get(AjukanKeluhanViewModel::class.java)
 //
 //        binding.viewModel = viewModel
-
-        ajukanBtn.setOnClickListener {
-            pengaduanId.let {
-                it?.let {
-                    if (masyarakatId != null) {
-                        postTanggapan(it,masyarakatId)
-                    }else{
-                        Toast.makeText(this@AjukanKeluhanActivity, "Parameter activity tidak ditemukan", Toast.LENGTH_SHORT).show()
-                    }
-                    return@setOnClickListener
-                }
-                return@let
-            }
-            postPengaduan()
-        }
-
-        pilihGambar.setOnClickListener {
-            openImageChooser()
-        }
 
     }
 
@@ -102,7 +103,7 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
 
                     listUri.add(uri)
                 }
-            }else{
+            } else {
                 listUri.add(data?.data)
             }
         }
@@ -110,20 +111,39 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
             ImageKeluhanAdapter(
                 listUri
             )
-        rvImagePengaduan.apply{
-            layoutManager = GridLayoutManager(this@AjukanKeluhanActivity,2, GridLayoutManager.VERTICAL,false)
+        rvImagePengaduan.apply {
             adapter = imageKeluhanAdapter
+            addItemDecoration(GridItemImageDecoration(5))
+            val mlayoutManager = GridLayoutManager(context, 2)
+            mlayoutManager.orientation = LinearLayoutManager.VERTICAL
+            if (listUri.size % 2 == 0) {
+                layoutManager = mlayoutManager
+            } else {
+                mlayoutManager.spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                    override fun getSpanSize(position: Int): Int {
+                        return when (adapter?.getItemViewType(position)) {
+                            1 -> 1
+                            0 -> 2 //number of columns of the grid
+                            else -> -1
+                        }
+                    }
+                }
+                layoutManager = mlayoutManager
+            }
+
+
         }
     }
 
     @NonNull
-    fun createPartFromString(descriptionString:String): RequestBody {
+    fun createPartFromString(descriptionString: String): RequestBody {
         return RequestBody.create(
-            MultipartBody.FORM, descriptionString)
+            MultipartBody.FORM, descriptionString
+        )
     }
 
     @NonNull
-    fun prepareFilePart(partName:String, fileUri: Uri): MultipartBody.Part {
+    fun prepareFilePart(partName: String, fileUri: Uri): MultipartBody.Part {
         val parcelFileDescriptor =
             contentResolver.openFileDescriptor(fileUri, "r", null)
 
@@ -137,7 +157,6 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
         inputStream.copyTo(outputStream)
         return MultipartBody.Part.createFormData(partName, file.name, requestFile)
     }
-
 
 
     private fun postPengaduan() {
@@ -156,7 +175,12 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
             val isiLaporan = createPartFromString(isiLaporan_editText.text.toString())
             val masyarakatId = createPartFromString("3")
 
-            MyApi(NetworkConnectionInterceptor(this)).uploadFiles(subjek, isiLaporan, masyarakatId, parts).enqueue(object :
+            MyApi(NetworkConnectionInterceptor(this)).uploadFiles(
+                subjek,
+                isiLaporan,
+                masyarakatId,
+                parts
+            ).enqueue(object :
                 Callback<PostPengaduanResponse> {
                 override fun onFailure(call: Call<PostPengaduanResponse>, t: Throwable) {
                     Log.d("TAG", "onFailure: " + t.message)
@@ -167,7 +191,7 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
                     response: Response<PostPengaduanResponse>
                 ) {
                     response.body()?.let {
-                        Coroutines.main{
+                        Coroutines.main {
                             alertDialogShow(this@AjukanKeluhanActivity, it.message)
                         }
                     }
@@ -177,7 +201,7 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
         }
     }
 
-    private fun postTanggapan(idPengaduan : Int, idMasyarakat : Int) {
+    private fun postTanggapan(idPengaduan: Int, idMasyarakat: Int) {
         Coroutines.io {
             val parts = arrayListOf<MultipartBody.Part>()
             if (listUri.isEmpty()) {
@@ -195,7 +219,13 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
 
 
 //            progress_bar.progress = 0
-            MyApi(NetworkConnectionInterceptor(this)).uploadFilesTanggapan(idPengaduan,subjek, isiLaporan, masyarakatId, parts).enqueue(object :
+            MyApi(NetworkConnectionInterceptor(this)).uploadFilesTanggapan(
+                idPengaduan,
+                subjek,
+                isiLaporan,
+                masyarakatId,
+                parts
+            ).enqueue(object :
                 Callback<PostPengaduanResponse> {
                 override fun onFailure(call: Call<PostPengaduanResponse>, t: Throwable) {
                     Log.d("TAG", "onFailure: " + t.message)
@@ -206,7 +236,7 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
                     response: Response<PostPengaduanResponse>
                 ) {
                     response.body()?.let {
-                        Coroutines.main{
+                        Coroutines.main {
                             alertDialogShow(this@AjukanKeluhanActivity, it.message)
                         }
                     }
@@ -220,4 +250,43 @@ class AjukanKeluhanActivity : AppCompatActivity(),KodeinAware{
         const val REQUEST_CODE_PICK_IMAGE = 101
     }
 
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_create_postingan, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+        when {
+            id == R.id.openAttachment -> {
+                openImageChooser()
+            }
+            id == R.id.sendPosting -> {
+                pengaduanId.let {
+                    it?.let {
+                        if (masyarakatId != null) {
+                            postTanggapan(it, masyarakatId!!)
+                        } else {
+                            Toast.makeText(
+                                this@AjukanKeluhanActivity,
+                                "Parameter activity tidak ditemukan",
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        }
+                    }
+                    if (it == null)
+                        postPengaduan()
+                }
+            }
+            id == android.R.id.home -> {
+                finish()
+            }
+        }
+        return true
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
+    }
 }
