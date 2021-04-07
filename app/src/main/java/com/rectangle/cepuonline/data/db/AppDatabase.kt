@@ -5,6 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.rectangle.cepuonline.data.network.model.User
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 @Database(
     entities = [User::class],
@@ -27,5 +30,11 @@ abstract class AppDatabase : RoomDatabase() {
             AppDatabase::class.java,
             "pengajuan.db"
             ).build()
+
+        fun clearTables() {
+            GlobalScope.launch(Dispatchers.IO) {
+                instance?.clearAllTables()
+            }
+        }
     }
 }

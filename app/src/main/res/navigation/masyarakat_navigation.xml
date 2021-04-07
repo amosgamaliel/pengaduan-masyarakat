@@ -19,4 +19,45 @@
         android:id="@+id/feedPengaduanFragment"
         android:name="com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.FeedPengaduanFragment"
         android:label="FeedPengaduanFragment" />
+    <fragment
+        android:id="@+id/masyarakatsTanggapanFragment"
+        android:name="com.rectangle.cepuonline.ui.home.masyarakat.tanggapan.MasyarakatsTanggapanFragment"
+        android:label="MasyarakatsTanggapanFragment" >
+        <action
+            android:id="@+id/action_masyarakatsTanggapanFragment_to_detailTanggapanFragment"
+            app:destination="@id/detailTanggapanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailTanggapanFragment"
+        android:name="com.rectangle.cepuonline.ui.home.masyarakat.tanggapan.DetailTanggapanFragment"
+        android:label="DetailTanggapanFragment" >
+        <action
+            android:id="@+id/action_detailTanggapanFragment_to_detailPengaduanFragment"
+            app:destination="@id/detailPengaduanFragment2" />
+        <argument android:name="idTanggapan"
+            app:argType="integer" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailPengaduanFragment2"
+        android:name="com.rectangle.cepuonline.ui.home.petugas.tanggapan.DetailPengaduanFragment"
+        android:label="DetailPengaduanFragment" >
+        <argument
+            android:name="isMasyarakat"
+            app:argType="boolean" />
+        <argument
+            android:name="idPengaduan"
+            app:argType="integer" />
+        <action
+            android:id="@+id/action_detailPengaduanFragment2_to_detailTanggapanFragment"
+            app:destination="@id/detailTanggapanFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyPengaduanFragment"
+        android:name="com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.history.HistoryPengaduanFragment"
+        android:label="history_pengaduan_fragment"
+        tools:layout="@layout/history_pengaduan_fragment" >
+        <action
+            android:id="@+id/action_historyPengaduanFragment_to_detailPengaduanFragment"
+            app:destination="@id/detailPengaduanFragment2" />
+    </fragment>
 </navigation>

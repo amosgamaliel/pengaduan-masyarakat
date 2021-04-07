@@ -13,7 +13,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
 
 
-const val REMOTE_URL = "http://192.168.1.8:8000"
+const val REMOTE_URL = "http://192.168.1.6:8000"
 interface MyApi {
     @FormUrlEncoded
     @POST("login")
@@ -64,6 +64,14 @@ interface MyApi {
     @GET("pengaduan/{id}")
     suspend fun getPengaduan(@Path("id") idPengaduan : Int ): Response<DetailPengaduanResponse>
 
+    @GET("tanggapan/{id}")
+    suspend fun getMasyarakatsTanggapan(@Path("id") idMasyarakat : Int ): Response<FeedTanggapanResponse>
+
+    @GET("tanggapan-detail/{id}")
+    suspend fun getTanggapanDetail(@Path("id") idPengaduan : Int ): Response<DetailTanggapanResponse>
+
+    @GET("pengaduan/history/{id}")
+    suspend fun getPengaduanHistory(@Path("id") idPengaduan : Int ): Response<FeedResponse>
 
     companion object{
         operator fun invoke(networkConnectionInterceptor: NetworkConnectionInterceptor) : MyApi{

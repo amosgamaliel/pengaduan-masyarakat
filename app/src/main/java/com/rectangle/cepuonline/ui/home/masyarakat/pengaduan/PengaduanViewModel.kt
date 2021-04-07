@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.rectangle.cepuonline.data.network.model.User
 import com.rectangle.cepuonline.data.network.response.PengaduanResponse
 import com.rectangle.cepuonline.data.repositories.KeluhanRepository
 import com.rectangle.cepuonline.ui.auth.AuthListener
@@ -23,6 +24,7 @@ class PengaduanViewModel(private val repository: KeluhanRepository) : ViewModel(
     var name:String? = null
     var passwordconfirm:String? = null
 
+    var dataUser : LiveData<User> = repository.getUser()
     private val _isNetworkError = MutableLiveData<Boolean>()
     val isNetworkError
         get() = _isNetworkError

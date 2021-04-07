@@ -2,8 +2,9 @@
     <string name="app_name">CepuOnline</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="dashboard">Dashboard</string>
-    <string name="home_nav">Ajukan</string>
+    <string name="dashboard">Beranda</string>
+    <string name="home_nav">Balasan</string>
     <string name="preference_file_key">cepuonline</string>
     <string name="pukul_string">%1$s Pukul %2$s</string>
+    <string name="history">History</string>
 </resources>

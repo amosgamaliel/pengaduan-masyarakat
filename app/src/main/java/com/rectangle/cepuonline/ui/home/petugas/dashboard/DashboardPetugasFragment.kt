@@ -11,6 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.fragment.findNavController
 import com.rectangle.cepuonline.R
+import com.rectangle.cepuonline.data.network.response.PengaduanResponse
 import com.rectangle.cepuonline.databinding.FragmentDashboardPetugasBinding
 import com.rectangle.cepuonline.ui.home.petugas.dashboard.adapter.DashboardPetugasAdapter
 import com.rectangle.cepuonline.ui.home.petugas.dashboard.adapter.listener.DashboardPetugasListener
@@ -51,11 +52,13 @@ class DashboardPetugasFragment : Fragment(), KodeinAware {
             DashboardPetugasAdapter(DashboardPetugasListener {
                 viewModel.onPengaduanClicked(it.id)
             })
+        adapter.removeItem()
+        viewModel.refreshData()
         binding.feedPengaduanRv.adapter = adapter
 
         viewModel.listPengaduan.observe(viewLifecycleOwner, Observer{
             it?.let {
-                adapter.data = it
+                adapter.data = it as MutableList<PengaduanResponse>
                 adapter.notifyDataSetChanged()
             }
         })

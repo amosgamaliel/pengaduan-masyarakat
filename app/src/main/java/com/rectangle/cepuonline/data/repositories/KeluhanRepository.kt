@@ -19,4 +19,18 @@ class KeluhanRepository(private val api: MyApi, private val db : AppDatabase) : 
     suspend fun getPengaduanById(idPengaduan : Int) : DetailPengaduanResponse {
         return apiRequest { api.getPengaduan(idPengaduan) }
     }
+
+    suspend fun  getMasyarakatsTanggapan(idMasyarakat : Int ): FeedTanggapanResponse{
+        return apiRequest { api.getMasyarakatsTanggapan(idMasyarakat) }
+    }
+
+    suspend fun getTanggapanById(idTanggapan : Int) : DetailTanggapanResponse{
+        return apiRequest { api.getTanggapanDetail(idTanggapan) }
+    }
+
+    suspend fun getUsersPengaduanHistory(idUser : Int) : FeedResponse{
+        return apiRequest { api.getPengaduanHistory(idUser) }
+    }
+
+    fun getUser() = db.getUserDao().getUser()
 }

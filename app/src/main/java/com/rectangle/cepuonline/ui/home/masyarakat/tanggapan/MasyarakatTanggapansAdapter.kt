@@ -1,28 +1,29 @@
-package com.rectangle.cepuonline.ui.home.petugas.dashboard.adapter
+package com.rectangle.cepuonline.ui.home.masyarakat.tanggapan
 
-import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.rectangle.cepuonline.data.network.response.PengaduanResponse
+import com.rectangle.cepuonline.data.network.response.TanggapanResponse
 import com.rectangle.cepuonline.databinding.ListItemPengaduanLinearBinding
+import com.rectangle.cepuonline.databinding.ListItemTanggapanLinearBinding
 import com.rectangle.cepuonline.ui.home.petugas.dashboard.adapter.listener.DashboardPetugasListener
 
-class DashboardPetugasAdapter(private val clickListener : DashboardPetugasListener) : ListAdapter<PengaduanResponse, DashboardPetugasAdapter.ViewHolder>(
-    PengaduanFeedDiffCallback()
+class MasyarakatTanggapansAdapter(private val clickListener : TanggapanListener) : ListAdapter<PengaduanResponse, MasyarakatTanggapansAdapter.ViewHolder>(
+    MasyarakatTanggapansDiffCallback()
 ) {
 
-    var data = mutableListOf<PengaduanResponse>()
+    var data = listOf<TanggapanResponse>()
         set(value) {
             field = value
             notifyDataSetChanged()
         }
 
-    class ViewHolder private constructor(private val binding: ListItemPengaduanLinearBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(item: PengaduanResponse, clickListener: DashboardPetugasListener) {
-            binding.pengaduan = item
+    class ViewHolder private constructor(private val binding: ListItemTanggapanLinearBinding) : RecyclerView.ViewHolder(binding.root) {
+        fun bind(item: TanggapanResponse, clickListener: TanggapanListener) {
+            binding.tanggapan = item
             binding.clickListener = clickListener
             binding.executePendingBindings()
         }
@@ -30,7 +31,7 @@ class DashboardPetugasAdapter(private val clickListener : DashboardPetugasListen
         companion object {
             fun from(parent: ViewGroup): ViewHolder {
                 val layoutInflater = LayoutInflater.from(parent.context)
-                val binding = ListItemPengaduanLinearBinding.inflate(layoutInflater, parent, false)
+                val binding = ListItemTanggapanLinearBinding.inflate(layoutInflater, parent, false)
 
 
                 return ViewHolder(
@@ -55,16 +56,9 @@ class DashboardPetugasAdapter(private val clickListener : DashboardPetugasListen
     override fun getItemCount(): Int {
         return data.size
     }
-
-    fun removeItem() {
-//        for (pengaduan in data) {
-//            data.remove(pengaduan)
-//        }
-        data.clear()
-    }
 }
 
-class PengaduanFeedDiffCallback  : DiffUtil.ItemCallback<PengaduanResponse>() {
+class MasyarakatTanggapansDiffCallback  : DiffUtil.ItemCallback<PengaduanResponse>() {
     override fun areItemsTheSame(oldItem: PengaduanResponse, newItem: PengaduanResponse): Boolean {
         return oldItem === newItem
     }

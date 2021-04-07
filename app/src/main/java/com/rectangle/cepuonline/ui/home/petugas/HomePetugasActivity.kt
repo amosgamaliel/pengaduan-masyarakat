@@ -15,5 +15,8 @@ class HomePetugasActivity : AppCompatActivity() {
         val navController = findNavController(R.id.home_petugas_nav_host)
         findViewById<BottomNavigationView>(R.id.bottom_nav)
             .setupWithNavController(navController)
+
+
+
     }
 }

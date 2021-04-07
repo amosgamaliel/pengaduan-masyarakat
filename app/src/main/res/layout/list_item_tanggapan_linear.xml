@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <variable
+            name="tanggapan"
+            type="com.rectangle.cepuonline.data.network.response.TanggapanResponse" />
+
+        <variable
+            name="clickListener"
+            type="com.rectangle.cepuonline.ui.home.masyarakat.tanggapan.TanggapanListener" />
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FFFFFF"
+        android:onClick="@{() -> clickListener.onClick(tanggapan)}">
+
+        <ImageView
+            android:id="@+id/profile_image"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_marginStart="8dp"
+            android:src="@android:drawable/ic_menu_send"
+            app:dumbAvatar="@{tanggapan}"
+            app:layout_constraintBottom_toBottomOf="@+id/isiPengaduan"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/namaPengadu" />
+
+        <TextView
+            android:id="@+id/namaPengadu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="Syahrul Choliq"
+            android:textSize="17sp"
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            app:layout_constraintTop_toTopOf="parent"
+            app:namaPengadu="@{tanggapan}" />
+
+        <TextView
+            android:id="@+id/subjekPengaduan"
+            android:layout_width="0dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="16dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="Subjek Pengaduan ada disini"
+            app:layout_constraintEnd_toStartOf="@+id/tanggalPengaduan"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            app:layout_constraintTop_toBottomOf="@+id/namaPengadu"
+            app:subjekPengaduan="@{tanggapan}" />
+
+        <TextView
+            android:id="@+id/isiPengaduan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:text="TextView"
+            android:maxEms="20"
+            app:isiLaporan="@{tanggapan}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/tanggalPengaduan"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/profile_image"
+            app:layout_constraintTop_toBottomOf="@+id/subjekPengaduan" />
+
+        <TextView
+            android:id="@+id/tanggalPengaduan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:text="30 Mar"
+            app:layout_constraintBottom_toBottomOf="@+id/isiPengaduan"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/namaPengadu"
+            app:tanggalPengaduanShort="@{tanggapan}" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -32,9 +32,12 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 
+const val ID_PENGADUAN: String = "idpengaduan"
 class DetailPengaduanFragment : Fragment(), KodeinAware, PengaduanListener {
     private lateinit var viewModel: DashboardPetugasViewModel
     private lateinit var binding: FragmentDetailPengaduanBinding
+    private var isMyBoolean = false
+    private var idPengaduan : Int? = null
     override val kodein by kodein()
     private val viewModelFactory: DashboardPetugasViewModelFactory by instance()
 
@@ -43,6 +46,15 @@ class DetailPengaduanFragment : Fragment(), KodeinAware, PengaduanListener {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+
+        arguments?.getBoolean("isMasyarakat")?.let {
+            isMyBoolean = it
+        }
+
+        arguments?.getInt("idPengaduan")?.let {
+            idPengaduan = it
+        }
+
         binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_detail_pengaduan, container, false)
         viewModel = ViewModelProviders.of(requireActivity(), viewModelFactory)
@@ -54,10 +66,22 @@ class DetailPengaduanFragment : Fragment(), KodeinAware, PengaduanListener {
             }
         })
 
-
+        idPengaduan?.let {
+            if(it!=0){
+                viewModel.getPengaduanFromApi(it)
+            }
+        }
 
         viewModel.pengaduan.observe(viewLifecycleOwner, Observer {
             it?.let { pengaduan ->
+                pengaduan.tanggapan?.let{
+                    isResponded.text = "Pengaduan ini sudah ditanggapi, lihat tanggapan?"
+                    isResponded.setOnClickListener {
+                        val args = Bundle()
+                        args.putInt(ID_PENGADUAN, pengaduan.tanggapan.id)
+                        findNavController().navigate(R.id.action_detailPengaduanFragment2_to_detailTanggapanFragment,args)
+                    }
+                }
                 binding.isiPengaduan.text = pengaduan.isi_laporan
                 binding.subjekPengaduan.text = pengaduan.subjek
                 binding.namaPengadu.text = pengaduan.namaPengadu
@@ -125,6 +149,10 @@ class DetailPengaduanFragment : Fragment(), KodeinAware, PengaduanListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        if(isMyBoolean){
+            tulisBalasButton.visibility = View.GONE
+        }
 
         tulisBalasButton.setOnClickListener {
             this.findNavController().navigate(DetailPengaduanFragmentDirections.actionDetailPengaduanFragmentToAjukanKeluhanActivity(viewModel.idPengaduan.value!!,viewModel.pengaduan.value!!.masyarakat_id,viewModel.pengaduan.value!!.namaPengadu,viewModel.pengaduan.value!!.subjek))

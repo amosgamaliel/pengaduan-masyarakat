@@ -3,6 +3,7 @@ package com.rectangle.cepuonline.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View.GONE
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -11,11 +12,13 @@ import com.rectangle.cepuonline.data.network.model.User
 import com.rectangle.cepuonline.databinding.ActivityLoginBinding
 import com.rectangle.cepuonline.ui.home.masyarakat.HomeMasyarakatActivity
 import com.rectangle.cepuonline.ui.home.petugas.HomePetugasActivity
+import com.rectangle.cepuonline.util.show
 //import com.rectangle.cepuonline.databinding.ActivityLoginBinding
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
 import com.rectangle.cepuonline.util.toast
+import kotlinx.android.synthetic.main.activity_login.*
 
 private const val ROLE_PETUGAS = 2
 private const val ROLE_MASYARAKAT = 3
@@ -56,14 +59,18 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
         })
     }
     override fun onStarted() {
-        toast("sedang login")
+        progress_bar.show()
+        buttonLogin.visibility = GONE
+//        toast("sedang login")
     }
 
     override fun onSuccess(user: User, token:String) {
-        toast(token)
+        progress_bar.show()
+        buttonLogin.visibility = GONE
     }
 
     override fun onFailure(message: String) {
         toast(message)
+        buttonLogin.visibility = GONE
     }
 }

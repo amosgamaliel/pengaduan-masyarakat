@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.data.network.response.ImagePengaduan
 import com.rectangle.cepuonline.data.network.response.PengaduanResponse
+import com.rectangle.cepuonline.data.network.response.TanggapanResponse
 import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter.GridItemImageDecoration
 import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.adapter.ImageKeluhanDataAdapter
 import de.hdodenhof.circleimageview.CircleImageView
@@ -123,9 +124,73 @@ fun TextView.tanggalPengaduanShort(pengaduan: PengaduanResponse?) {
     }
 }
 
+@BindingAdapter("tanggalPengaduanShort")
+fun TextView.tanggalPengaduanShort(pengaduan: TanggapanResponse?) {
+    pengaduan?.let{
+        if(pengaduan.status == 0){
+            typeface = Typeface.DEFAULT_BOLD
+        }
+        val format = SimpleDateFormat("dd MMM")
+        val tanggal = format.format(pengaduan.tanggal_tanggapan)
+        text = tanggal
+    }
+}
+
 @BindingAdapter("isiLaporan")
 fun TextView.isiLaporan(pengaduan: PengaduanResponse?) {
     pengaduan?.let{
         text = pengaduan.isi_laporan
+    }
+}
+
+@BindingAdapter("isiLaporan")
+fun TextView.isiLaporan(pengaduan: TanggapanResponse?) {
+    pengaduan?.let{
+        text = pengaduan.isi_tanggapan
+    }
+}
+
+@BindingAdapter("subjekPengaduan")
+fun TextView.subjekPengaduan(pengaduan: TanggapanResponse?) {
+    pengaduan?.let{
+        if(pengaduan.status == 0){
+            typeface = Typeface.DEFAULT_BOLD
+        }
+        text = pengaduan.subjek
+    }
+}
+
+@BindingAdapter("namaPengadu")
+fun TextView.namaPengadu(pengaduan: TanggapanResponse?) {
+    pengaduan?.let{
+        if(pengaduan.status == 0){
+            typeface = Typeface.DEFAULT_BOLD
+        }
+        text = pengaduan.nama
+    }
+}
+
+@BindingAdapter("dumbAvatar")
+fun ImageView.dumbAvatar(pengaduan : TanggapanResponse?){
+    pengaduan?.let{
+        setImageDrawable(AvatarGenerator.avatarImage(
+            context,
+            100,
+            1,
+            pengaduan.nama
+        ))
+    }
+}
+
+@BindingAdapter("tanggalPengaduan")
+fun TextView.tanggalPengaduan(pengaduan: TanggapanResponse?) {
+    pengaduan?.let{
+        val formatDate = SimpleDateFormat("E, dd MMM yyyy")
+        val formatTime = SimpleDateFormat("HH.mm")
+        val tanggal = formatDate.format(pengaduan.tanggal_tanggapan)
+        val waktu = formatTime.format(pengaduan.tanggal_tanggapan)
+
+
+        text = String.format(context.getString(R.string.pukul_string),tanggal,waktu)
     }
 }

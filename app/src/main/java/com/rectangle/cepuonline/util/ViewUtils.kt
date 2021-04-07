@@ -9,9 +9,11 @@ import android.net.Uri
 import android.os.Build
 import android.provider.OpenableColumns
 import android.view.View
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.activity_login.view.*
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.time.LocalDateTime
@@ -24,12 +26,12 @@ import kotlin.math.abs
 fun Context.toast(message : String){
     Toast.makeText(this,message,Toast.LENGTH_SHORT).show()
 }
-//fun ProgressBar.show(){
-//    progress_bar.visibility = View.VISIBLE
-//}
-//fun ProgressBar.hide(){
-//    progress_bar.visibility = View.GONE
-//}
+fun ProgressBar.show(){
+    progress_bar.visibility = View.VISIBLE
+}
+fun ProgressBar.hide(){
+    progress_bar.visibility = View.GONE
+}
 fun View.snackbar(message: String){
     Snackbar.make(this,message,Snackbar.LENGTH_SHORT).also { snackbar ->
         snackbar.setAction("OK"){

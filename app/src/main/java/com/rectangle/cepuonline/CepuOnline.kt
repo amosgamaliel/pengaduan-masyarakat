@@ -9,6 +9,9 @@ import com.rectangle.cepuonline.data.repositories.KeluhanRepository
 import com.rectangle.cepuonline.data.repositories.UserRepository
 import com.rectangle.cepuonline.ui.auth.AuthViewModelFactory
 import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.PengaduanViewModelFactory
+import com.rectangle.cepuonline.ui.home.masyarakat.pengaduan.history.HistoryPengaduanViewModelFactory
+import com.rectangle.cepuonline.ui.home.masyarakat.tanggapan.MasyarakatsTanggapanViewModel
+import com.rectangle.cepuonline.ui.home.masyarakat.tanggapan.MasyarakatsTanggapanViewModelFactory
 import com.rectangle.cepuonline.ui.home.petugas.dashboard.DashboardPetugasViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -31,6 +34,9 @@ class CepuOnline : Application(), KodeinAware {
         bind() from provider { AuthViewModelFactory(instance()) }
         bind() from provider { PengaduanViewModelFactory(instance()) }
         bind() from provider { DashboardPetugasViewModelFactory(instance()) }
+        bind() from provider { MasyarakatsTanggapanViewModelFactory(instance()) }
+        bind() from provider { HistoryPengaduanViewModelFactory(instance()) }
+
 //        bind() from provider {
 //            QuotesViewModelFactory(
 //                instance()

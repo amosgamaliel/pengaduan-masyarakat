@@ -15,7 +15,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#9F9F9F"
+        android:background="#00D5D5D5"
+        android:paddingBottom="68dp"
         tools:context=".ui.home.masyarakat.pengaduan.FeedPengaduanFragment">
 
 
@@ -23,7 +24,6 @@
             android:id="@+id/feedPengaduanRv"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#D5D5D5"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -34,12 +34,13 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabAja"
-            android:layout_width="64dp"
-            android:layout_height="51dp"
-            android:clickable="true"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:layout_gravity="end|bottom"
             android:layout_margin="16dp"
-            android:src="@drawable/ic_lock"
+            android:clickable="true"
+            android:foregroundGravity="center_vertical|center_horizontal"
+            android:src="@drawable/ic_baseline_post_add_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>

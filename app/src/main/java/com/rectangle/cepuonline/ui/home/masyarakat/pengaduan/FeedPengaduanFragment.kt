@@ -17,10 +17,13 @@ import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
 import org.kodein.di.generic.instance
 
+const val EMPTY_ARGS_STRING = "XKOSONGX"
+const val EMPTY_ARGS_INT = -1
 class FeedPengaduanFragment : Fragment(), KodeinAware{
 
     private lateinit var viewModel: PengaduanViewModel
     override val kodein by kodein()
+    var idMasyarakat : Int? = null
     private  val viewModelFactory: PengaduanViewModelFactory by instance()
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,6 +44,13 @@ class FeedPengaduanFragment : Fragment(), KodeinAware{
             }
             adapter.notifyDataSetChanged()
         })
+
+        viewModel.dataUser.observe(viewLifecycleOwner,Observer{
+            it?.let {
+                idMasyarakat = it.masyarakat_id
+                Toast.makeText(context, "id masyarakat $idMasyarakat", Toast.LENGTH_SHORT).show()
+            }
+        })
         return binding.root
     }
 
@@ -49,8 +59,13 @@ class FeedPengaduanFragment : Fragment(), KodeinAware{
         val fab: FloatingActionButton? = view.findViewById(R.id.fabAja)
         fab?.setOnClickListener {
             Toast.makeText(context, "woah", Toast.LENGTH_SHORT).show()
+
             activity?.let{
                 val intent = Intent (it, AjukanKeluhanActivity::class.java)
+                intent.putExtra("masyarakatId",idMasyarakat)
+                intent.putExtra("pengaduanId",EMPTY_ARGS_INT)
+                intent.putExtra("namaMasyarakat",EMPTY_ARGS_STRING)
+                intent.putExtra("subjekPengaduan", EMPTY_ARGS_STRING)
                 it.startActivity(intent)
             }
         }

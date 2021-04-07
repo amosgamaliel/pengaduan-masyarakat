@@ -1,13 +1,13 @@
-package com.rectangle.cepuonline.ui.home.petugas.tanggapan
+package com.rectangle.cepuonline.ui.home.masyarakat.tanggapan
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.rectangle.cepuonline.data.repositories.KeluhanRepository
 import com.rectangle.cepuonline.ui.home.petugas.dashboard.DashboardPetugasViewModel
 
-class DetailPengaduanViewModelFactory (private val repository: KeluhanRepository, private val idPengaduan : Int):
+class MasyarakatsTanggapanViewModelFactory (private val repository: KeluhanRepository):
     ViewModelProvider.NewInstanceFactory() {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return DetailPengaduanViewModel(repository) as T
+        return MasyarakatsTanggapanViewModel(repository) as T
     }
 }

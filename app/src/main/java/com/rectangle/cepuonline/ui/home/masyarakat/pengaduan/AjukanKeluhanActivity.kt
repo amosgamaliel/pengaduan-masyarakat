@@ -41,7 +41,7 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
 
     private lateinit var viewModel: PengaduanViewModel
     private var pengaduanId: Int? = null
-    private var masyarakatId: Int? = null
+    private var masyarakatIdBundle: Int? = null
     private var namaMasyarakat: String? = null
     private var subjekPengaduan: String? = null
 
@@ -60,21 +60,27 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
         supportActionBar?.setDisplayShowHomeEnabled(true);
 
         pengaduanId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).pengaduanId }
-        masyarakatId = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).masyarakatId }
+        masyarakatIdBundle = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).masyarakatId }
         namaMasyarakat = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).namaMasyarakat }
         subjekPengaduan = intent.extras?.let { AjukanKeluhanActivityArgs.fromBundle(it).subjekPengaduan }
 
         pengaduanId?.let {
-            toolbar?.title = "Buat Tanggapan"
-            Toast.makeText(this@AjukanKeluhanActivity, it.toString(), Toast.LENGTH_SHORT).show()
+            if(it != EMPTY_ARGS_INT) {
+                toolbar?.title = "Buat Tanggapan"
+                Toast.makeText(this@AjukanKeluhanActivity, it.toString(), Toast.LENGTH_SHORT).show()
+            }
         }
 
         namaMasyarakat?.let {
-            toPetugas.text= it
+            if(it != EMPTY_ARGS_STRING) {
+                toPetugas.text = it
+            }
         }
 
         subjekPengaduan?.let{
-            subjek_editText.setText("Tanggapan untuk pengaduan anda : $it")
+            if(it != EMPTY_ARGS_STRING) {
+                subjek_editText.setText("Tanggapan untuk pengaduan anda : $it")
+            }
         }
 
 
@@ -165,7 +171,7 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
     }
 
 
-    private fun postPengaduan() {
+    private fun postPengaduan(idMasyarakat : Int) {
         Coroutines.io {
             val parts = arrayListOf<MultipartBody.Part>()
             if (listUri.isEmpty()) {
@@ -179,7 +185,7 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
 
             val subjek = createPartFromString(subjek_editText.text.toString())
             val isiLaporan = createPartFromString(isiLaporan_editText.text.toString())
-            val masyarakatId = createPartFromString("3")
+            val masyarakatId = createPartFromString(idMasyarakat.toString())
 
             MyApi(NetworkConnectionInterceptor(this)).uploadFiles(
                 subjek,
@@ -270,8 +276,8 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
             id == R.id.sendPosting -> {
                 pengaduanId.let {
                     it?.let {
-                        if (masyarakatId != null) {
-                            postTanggapan(it, masyarakatId!!)
+                        if (masyarakatIdBundle != null) {
+                            postTanggapan(it, masyarakatIdBundle!!)
                         } else {
                             Toast.makeText(
                                 this@AjukanKeluhanActivity,
@@ -280,8 +286,8 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
                             ).show()
                         }
                     }
-                    if (it == null)
-                        postPengaduan()
+                    if (it == EMPTY_ARGS_INT)
+                        postPengaduan(masyarakatIdBundle!!)
                 }
             }
             id == android.R.id.home -> {
