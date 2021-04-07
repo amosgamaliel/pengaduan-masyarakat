@@ -142,8 +142,6 @@ class AjukanKeluhanActivity : AppCompatActivity(), KodeinAware {
                 }
                 layoutManager = mlayoutManager
             }
-
-
         }
     }
 

@@ -179,3 +179,14 @@ fun alertDialogShow(context: Context?, message: String?) {
 
     alertDialog.show()
 }
+
+fun alertDialogAuth(context: Context?, message: String?) {
+    val alertDialog: AlertDialog = AlertDialog.Builder(context).create()
+    alertDialog.setMessage(message)
+    alertDialog.setButton("OK",
+        DialogInterface.OnClickListener { dialog, which ->
+            alertDialog.dismiss()
+        })
+
+    alertDialog.show()
+}

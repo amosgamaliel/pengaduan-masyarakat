@@ -48,7 +48,7 @@ class FeedPengaduanFragment : Fragment(), KodeinAware{
         viewModel.dataUser.observe(viewLifecycleOwner,Observer{
             it?.let {
                 idMasyarakat = it.masyarakat_id
-                Toast.makeText(context, "id masyarakat $idMasyarakat", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, "id masyarakat $it", Toast.LENGTH_SHORT).show()
             }
         })
         return binding.root
