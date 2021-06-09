@@ -23,6 +23,7 @@ import com.rectangle.cepuonline.ui.home.petugas.dashboard.DashboardPetugasViewMo
 import com.rectangle.cepuonline.ui.home.petugas.dashboard.DashboardPetugasViewModelFactory
 import com.rectangle.cepuonline.util.AvatarGenerator
 import com.rectangle.cepuonline.util.parseDate
+import com.rectangle.cepuonline.util.tanggalPengaduan
 import kotlinx.android.synthetic.main.fragment_detail_pengaduan.*
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.kodein
@@ -94,17 +95,7 @@ class DetailPengaduanFragment : Fragment(), KodeinAware, PengaduanListener {
                             pengaduan.namaPengadu
                         )
                     })
-                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-                sdf.setTimeZone(TimeZone.getTimeZone("GMT"))
-                try {
-                    val time: Long = pengaduan.tanggal_pengaduan.time
-                    val now = System.currentTimeMillis()
-                    val ago =
-                        DateUtils.getRelativeTimeSpanString(time, now, DateUtils.SECOND_IN_MILLIS)
-                    binding.tanggalPengaduan.text = ago
-                } catch (e: ParseException) {
-                    e.printStackTrace()
-                }
+                binding.tanggalPengaduan.tanggalPengaduan(pengaduan)
 //                val niceDateStr: String = DateUtils.getRelativeTimeSpanString(
 //                    pengaduan.tanggal_pengaduan.getTime(),
 //                    Calendar.getInstance().timeInMillis,

@@ -4,8 +4,8 @@
         android:id="@id/dashboardPetugasFragment"
         android:icon="@drawable/ic_dashboard_24"
         android:title="@string/dashboard"/>
-    <item
-        android:id="@id/ajukanKeluhanFragment"
-        android:icon="@drawable/ic_mulai_antri_24"
-        android:title="@string/home_nav"/>
+<!--    <item-->
+<!--        android:id="@id/ajukanKeluhanFragment"-->
+<!--        android:icon="@drawable/ic_mulai_antri_24"-->
+<!--        android:title="@string/home_nav"/>-->
 </menu>

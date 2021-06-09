@@ -48,7 +48,7 @@ class FeedPengaduanFragment : Fragment(), KodeinAware{
         viewModel.dataUser.observe(viewLifecycleOwner,Observer{
             it?.let {
                 idMasyarakat = it.masyarakat_id
-                Toast.makeText(context, "id masyarakat $it", Toast.LENGTH_SHORT).show()
+//                Toast.makeText(context, "id masyarakat $it", Toast.LENGTH_SHORT).show()
             }
         })
         return binding.root
@@ -58,7 +58,7 @@ class FeedPengaduanFragment : Fragment(), KodeinAware{
         super.onViewCreated(view, savedInstanceState)
         val fab: FloatingActionButton? = view.findViewById(R.id.fabAja)
         fab?.setOnClickListener {
-            Toast.makeText(context, "woah", Toast.LENGTH_SHORT).show()
+//            Toast.makeText(context, "woah", Toast.LENGTH_SHORT).show()
 
             activity?.let{
                 val intent = Intent (it, AjukanKeluhanActivity::class.java)

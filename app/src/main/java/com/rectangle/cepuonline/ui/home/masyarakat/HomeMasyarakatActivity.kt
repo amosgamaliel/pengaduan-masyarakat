@@ -28,10 +28,10 @@ class HomeMasyarakatActivity : AppCompatActivity() {
         findViewById<BottomNavigationView>(R.id.bottom_nav)
             .setupWithNavController(navController)
 
-        val badge = bottom_nav.getOrCreateBadge(R.id.feedPengaduanFragment)
-        badge.isVisible = true
-// An icon only badge will be displayed unless a number is set:
-        badge.number = 2
+//        val badge = bottom_nav.getOrCreateBadge(R.id.feedPengaduanFragment)
+//        badge.isVisible = true
+//// An icon only badge will be displayed unless a number is set:
+//        badge.number = 2
         val builder = AlertDialog.Builder(this)
 
         logout.setOnClickListener {

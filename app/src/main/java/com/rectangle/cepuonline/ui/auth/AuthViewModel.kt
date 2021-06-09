@@ -16,8 +16,9 @@ import com.rectangle.cepuonline.util.NoInternetException
 class AuthViewModel(private val repository: UserRepository) : ViewModel() {
 
     var email:String? = null
-    var password:String? = null
     var authListener: AuthListener? = null
+    var password:String? = null
+    var nik:String? = null
     var name:String? = null
     var passwordconfirm:String? = null
 
@@ -35,7 +36,7 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
             try {
                 val authResponse = repository.userLogin(email!!,password!!)
                 authResponse.user?.let {
-                    authListener?.onSuccess(it,authResponse.token)
+                    authListener?.onSuccess(it)
                     repository.saveUser(it)
                     return@main
                 }
@@ -50,11 +51,11 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
 
     }
 
-//    fun onSignup(view : View){
-//        Intent(view.context,SignUpActivity::class.java).also {
-//            view.context.startActivity(it)
-//        }
-//    }
+    fun onSignup(view : View){
+        Intent(view.context,RegisterActivity::class.java).also {
+            view.context.startActivity(it)
+        }
+    }
 
     fun onLogin(view: View) {
         Intent(view.context, LoginActivity::class.java).also {
@@ -66,19 +67,24 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
         authListener?.onStarted()
 
         if (name.isNullOrEmpty()){
-            authListener?.onFailure("Name is required")
+            authListener?.onFailure("Name tidak boleh kosong")
             return
         }
         if (email.isNullOrEmpty()){
-            authListener?.onFailure("Email is required")
+            authListener?.onFailure("Username tidak boleh kosong")
             return
         }
         if (password.isNullOrEmpty()){
-            authListener?.onFailure("Password is required")
+            authListener?.onFailure("Password tidak boleh kosong")
             return
         }
         if(password != passwordconfirm){
-            authListener?.onFailure("Password did not match")
+            authListener?.onFailure("Password tidak sesuai")
+            return
+        }
+
+        if(nik?.length!! > 16 || nik?.length!! < 16 || nik.isNullOrEmpty() ){
+            authListener?.onFailure("NIK harus 16 digit")
             return
         }
 
@@ -89,9 +95,9 @@ class AuthViewModel(private val repository: UserRepository) : ViewModel() {
         //success
         Coroutines.main {
             try {
-                val authResponse = repository.userSignup(name!!,email!!,password!!)
+                val authResponse = repository.userSignup(name!!,email!!,password!!,nik!!)
                 authResponse.user?.let {
-//                    authListener?.onSuccess(it)
+                    authListener?.onSuccess(it)
 //                    repository.saveUser(it)
                     return@main
                 }

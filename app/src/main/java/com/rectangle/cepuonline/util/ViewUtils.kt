@@ -30,7 +30,7 @@ fun ProgressBar.show(){
     progress_bar.visibility = View.VISIBLE
 }
 fun ProgressBar.hide(){
-    progress_bar.visibility = View.GONE
+    progress_bar.visibility = View.INVISIBLE
 }
 fun View.snackbar(message: String){
     Snackbar.make(this,message,Snackbar.LENGTH_SHORT).also { snackbar ->

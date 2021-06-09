@@ -15,8 +15,8 @@ class UserRepository(private val api: MyApi,private val db : AppDatabase, privat
             sharedPreferences.saveToken(it.body()?.token!!) } }
     }
 
-    suspend fun userSignup(name:String,email: String,password: String) : AuthResponse{
-        return apiRequest { api.userSignup(name,email,password) }
+    suspend fun userSignup(name:String,username: String,password: String, nik : String) : AuthResponse{
+        return apiRequest { api.userSignup(name,username,password, nik) }
     }
 
     suspend fun saveUser(user: User) = db.getUserDao().upsert(user)

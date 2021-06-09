@@ -3,35 +3,32 @@ package com.rectangle.cepuonline.ui.auth
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View.GONE
-import android.view.View.VISIBLE
+import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.rectangle.cepuonline.R
 import com.rectangle.cepuonline.data.network.model.User
-import com.rectangle.cepuonline.databinding.ActivityLoginBinding
+import com.rectangle.cepuonline.databinding.ActivityRegisterBinding
 import com.rectangle.cepuonline.ui.home.masyarakat.HomeMasyarakatActivity
 import com.rectangle.cepuonline.ui.home.petugas.HomePetugasActivity
 import com.rectangle.cepuonline.util.*
-//import com.rectangle.cepuonline.databinding.ActivityLoginBinding
+import kotlinx.android.synthetic.main.activity_login.*
+import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_register.buttonLogin
+import kotlinx.android.synthetic.main.activity_register.progress_bar
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.kodein
 import org.kodein.di.generic.instance
-import kotlinx.android.synthetic.main.activity_login.*
 
-const val ROLE_PETUGAS = 2
-const val ROLE_MASYARAKAT = 3
-class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
-
+class RegisterActivity : AppCompatActivity(), KodeinAware,AuthListener{
     override val kodein by kodein()
-
     private val factory : AuthViewModelFactory by instance()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val binding : ActivityLoginBinding = DataBindingUtil.setContentView(this,R.layout.activity_login)
-        val viewModel = ViewModelProviders.of(this,factory).get(AuthViewModel::class.java)
+        val binding : ActivityRegisterBinding = DataBindingUtil.setContentView(this,R.layout.activity_register)
+        val viewModel = ViewModelProviders.of(this,factory  ).get(AuthViewModel::class.java)
 
         binding.viewModel = viewModel
         viewModel.authListener = this
@@ -58,23 +55,21 @@ class LoginActivity : AppCompatActivity(), AuthListener, KodeinAware {
             }
         })
     }
+
     override fun onStarted() {
         progress_bar.show()
-        buttonLogin.visibility = GONE
-//        toast("sedang login")
+        buttonLogin.visibility = View.GONE
     }
 
     override fun onSuccess(user: User) {
         progress_bar.hide()
-        buttonLogin.visibility = VISIBLE
+        buttonLogin.visibility = View.VISIBLE
+        alertDialogShow(this,"Register berhasil, silahkan login")
     }
 
     override fun onFailure(message: String) {
-//        toast(message)
+        root_layout.snackbar(message)
+        buttonLogin.visibility = View.VISIBLE
         progress_bar.hide()
-        alertDialogAuth(this,message)
-        buttonLogin.visibility = VISIBLE
-        edtID.setText("")
-        edtPass.setText("")
     }
 }
